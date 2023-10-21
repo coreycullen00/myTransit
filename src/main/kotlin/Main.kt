@@ -13,7 +13,16 @@ suspend fun main(args: Array<String>) {
 
     val stops = stopsCall.makeRequest()
     stops?.stops?.sortedBy { it.distance }
-    println(stops.toString())
+    println("Bus Stops:\n${stops.toString()}")
+
+
+    val departuresCall = api.getStopDepartures(
+        apiKey = "20d312a1990692c8e0743aa9cc7323423b5d203bfc38068133c84894dc6a2961",
+        globalStopId = "DUBIE:67281"
+    )
+
+    val departures = departuresCall.makeRequest()
+    println("Route Departures\n${departures.toString()}")
 }
 
 private suspend fun <T> Call<T>.makeRequest(): T? {

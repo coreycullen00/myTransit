@@ -1,5 +1,6 @@
 package service
 
+import model.RouteDepartures
 import model.Stops
 import retrofit2.Call
 import retrofit2.http.GET
@@ -11,15 +12,21 @@ interface TransitApiService {
     @GET("/v3/public/nearby_stops")
     fun getStopsNearLocation(
         @Header("apiKey") apiKey: String,
-        @Query(value = "lon") longitude: Double,
-        @Query(value = "lat") latitude: Double
+        @Query("lon") longitude: Double,
+        @Query("lat") latitude: Double
     ): Call<Stops>
 
     @GET("/v3/public/nearby_stops")
     fun getStopsNearLocation(
         @Header("apiKey") apiKey: String,
-        @Query(value = "lon") longitude: Double,
-        @Query(value = "lat") latitude: Double,
-        @Query(value = "max_distance") distance: Int
+        @Query("lon") longitude: Double,
+        @Query("lat") latitude: Double,
+        @Query("max_distance") distance: Int
     ): Call<Stops>
+
+    @GET("/v3/public/stop_departures")
+    fun getStopDepartures(
+        @Header("apiKey") apiKey: String,
+        @Query("global_stop_id") globalStopId: String
+    ): Call<RouteDepartures>
 }
